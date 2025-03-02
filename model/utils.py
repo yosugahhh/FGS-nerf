@@ -217,8 +217,6 @@ def validate_image(args, cfg, stage, step, data_dict, render_viewpoints_kwargs, 
     eval_lpips_alex = args.eval_lpips_alex and eval_all
     eval_lpips_vgg = args.eval_lpips_alex and eval_all
     if stage == 'eval':
-        if args.dataset_type == 'dtu':
-            data_dict['i_test'] = data_dict['i_train']
         logger.info(f"validating test set idx: {data_dict['i_test']}")
         rgbs, disps, extras = render_viewpoints(
             cfg=cfg,
@@ -233,7 +231,7 @@ def validate_image(args, cfg, stage, step, data_dict, render_viewpoints_kwargs, 
             **render_viewpoints_kwargs)
     else:
         rand_idx = random.randint(0, len(data_dict['poses'][data_dict['i_test']]) - 1)
-        rand_idx = 0
+        # rand_idx = 0
         logger.info(f"validating test set idx: {rand_idx}")
         rgbs, disps, extras = render_viewpoints(
             cfg=cfg,
